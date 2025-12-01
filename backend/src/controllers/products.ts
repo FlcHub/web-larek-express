@@ -41,11 +41,11 @@ export const createProduct = (req: Request, res: Response, next: NextFunction) =
       } = product;
       res.status(201).send({
         _id,
-        titleDb,
-        imageDb,
-        categoryDb,
-        descriptionDb,
-        priceDb,
+        title: titleDb,
+        image: imageDb,
+        category: categoryDb,
+        description: descriptionDb,
+        price: priceDb,
       });
     })
     .catch((err) => {
