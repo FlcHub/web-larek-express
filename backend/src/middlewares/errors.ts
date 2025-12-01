@@ -18,9 +18,7 @@ const errorHandler = (
       .join('; ');
 
     return res.status(err.statusCode || 400).send({
-      error: {
-        message: msg,
-      },
+      message: msg,
     });
   }
 
