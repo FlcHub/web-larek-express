@@ -4,7 +4,7 @@ import Product from '../models/product';
 import ServerError from '../errors/server-error';
 import ConflictError from '../errors/conflict-error';
 
-export const getProducts = (req: Request, res: Response, next: NextFunction) => Product.find({})
+export const getProducts = (_req: Request, res: Response, next: NextFunction) => Product.find({})
   .then((products) => res.send({
     items: products.map((el) => ({
       _id: el._id,
@@ -30,24 +30,28 @@ export const createProduct = (req: Request, res: Response, next: NextFunction) =
     description,
     price,
   })
-  .then((product) => {
-    const {
-      _id, title, image, category, description, price,
-    } = product;
-    res.status(201).send({
-      _id,
-      title,
-      image,
-      category,
-      description,
-      price,
+    .then((product) => {
+      const {
+        _id,
+        title: titleDb, // чтобы успокоить линтер
+        image: imageDb,
+        category: categoryDb,
+        description: descriptionDb,
+        price: priceDb,
+      } = product;
+      res.status(201).send({
+        _id,
+        titleDb,
+        imageDb,
+        categoryDb,
+        descriptionDb,
+        priceDb,
+      });
+    })
+    .catch((err) => {
+      if (err instanceof Error && err.message.includes('E11000')) {
+        return next(new ConflictError(err.message));
+      }
+      return next(new ServerError(err.message));
     });
-  })
-  .catch((err) => {
-    if (err instanceof Error && err.message.includes('E11000')) {
-      next(new ConflictError(err.message));
-    } else {
-      next(new ServerError(err.message));
-    }
-  });
 };
