@@ -30,13 +30,11 @@
   "dependencies": {
     "@faker-js/faker": "^10.1.0",
     "celebrate": "^15.0.3",
-    "joi": "^17.13.3",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^4.19.2",
     "express-winston": "^4.2.0",
     "mongoose": "^8.3.2",
-    "validator": "^13.11.0",
     "winston": "^3.18.3"
   }
 }
