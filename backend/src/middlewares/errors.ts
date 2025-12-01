@@ -25,9 +25,7 @@ const errorHandler = (
   }
 
   return res.status(err.statusCode || 500).send({
-    error: {
-      message: err.message,
-    },
+    message: err.message,
   });
 };
 
